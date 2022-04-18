@@ -3,7 +3,8 @@
 
     // Objeto con metodo que se utilizará globalmente
     var silabaJS = {
-        getSilabas: getSilabas
+        getSilabas: getSilabas,
+        jering: jering
     };
 
     // Declaración de Variables
@@ -37,6 +38,21 @@
         return Object.assign({}, silaba);
     }
 
+    function jering(palabra){
+        var silaba = silabaJS.getSilabas(palabra);
+        var jeringo = silaba.silabas.map(x => {
+            var sil = x.silaba
+            if(/[aeiouy]$/.test(sil.slice(-1)))
+                sil = sil + "p" + sil.slice(-1)
+            else
+                sil = sil.slice(0,-1) + "p" + sil.slice(-2)
+            return sil;
+        })
+        if(palabra.length > 2)
+            document.getElementById("demo").innerHTML = jeringo.join('');
+        else
+            document.getElementById("demo").innerHTML = "";
+    }
 
     /*********************************************************/
     /*********************************************************/
