@@ -10,6 +10,8 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     </head>
     
     <body>
@@ -31,8 +33,8 @@
                 </div>
                 <div class="block">
                     <div class="buttons is-right">
-                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="submitPhrase(this.value)" value="Traducir"></input>
                         <input type="button" id="limpiar" class="button is-primary is-large is-half" onclick="limpiar()" value="Limpiar"></input>
+                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="submitPhrase(this.value)" value="Traducir"></input>
                     </div>
                 </div>
                 <div class="block">
@@ -40,7 +42,9 @@
                 </div>
                 <div class="block">
                     <div class="buttons is-right">
-                        <input type="button" id="escuchar" class="button is-primary is-large is-half" onclick="escuchar()" value="Escuchar"></input>
+                        <button id="copiar" class="button is-light is-large is-half" onclick="copiar()"><span class="material-icons">content_copy</span></button>
+                        <button id="escuchar" class="button is-light is-large is-half" onclick="escuchar()"><span class="material-icons">volume_up</span></button>
+                        
                     </div>
                 </div>
             </div>
@@ -67,6 +71,15 @@
 
             function escuchar(){
                 silabaJS.escuchar(document.getElementById("demo").value)
+            }
+
+            function copiar() {
+                var copyText = document.getElementById("demo").value;
+                navigator.clipboard.writeText(copyText).then(() => {
+                    // Alert the user that the action took place.
+                    // Nobody likes hidden stuff being done under the hood!
+                    alert("Texto copiado al portapapeles");
+                });
             }
         </script>
     </body>
