@@ -4,7 +4,8 @@
     // Objeto con metodo que se utilizará globalmente
     var silabaJS = {
         getSilabas: getSilabas,
-        jering: jering
+        jeringuear: jeringuear,
+        escuchar: escuchar
     };
 
     // Declaración de Variables
@@ -42,16 +43,35 @@
         var silaba = silabaJS.getSilabas(palabra);
         var jeringo = silaba.silabas.map(x => {
             var sil = x.silaba
-            if(/[aeiouy]$/.test(sil.slice(-1)))
-                sil = sil + "p" + sil.slice(-1)
-            else
+            var letrasSilaba = sil.split('')
+            if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-1])){
+                if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-2])) {
+                    var pri = sil.slice(0,-1);
+                    var sec = sil.slice(-1);
+                    sil = pri + "p" + pri.slice(-1) + sec + "p" + sec.slice(-1);
+                } else
+                    sil = sil + "p" + sil.slice(-1)
+            } else
                 sil = sil.slice(0,-1) + "p" + sil.slice(-2)
             return sil;
         })
-        if(palabra.length > 2)
-            document.getElementById("demo").innerHTML = jeringo.join('');
-        else
-            document.getElementById("demo").innerHTML = "";
+        return jeringo.join('');
+    }
+
+    function jeringuear(texto) {
+        var textArray = texto.split(' ');
+        var salida = textArray.map(x => {
+                console.log(JSON.stringify(getSilabas(x)));    
+                return jering(x);
+            })
+        var resultText = salida.join(' ');
+        document.getElementById("demo").innerText = resultText
+    }
+
+    function escuchar(text) {
+        var utterThis = new SpeechSynthesisUtterance(text);
+        utterThis.lang = 'es-AR';
+        window.speechSynthesis.speak(utterThis);
     }
 
     /*********************************************************/
