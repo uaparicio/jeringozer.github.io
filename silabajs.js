@@ -43,25 +43,30 @@
         palabra = palabra.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         silaba = silabaJS.getSilabas(palabra);
         console.log(JSON.stringify(silaba));
-        var jeringo = silaba.silabas.map(x => {
-            var sil = x.silaba
-            if (sil.length === 1)
+        return silaba.silabas.map( x => {
+            var sil = x.silaba;
+            if(/[aeiouy]/.test(sil) && sil.length === 1)
                 return sil + "p" + sil
-            var letrasSilaba = sil.split('')
-            if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-1])){
-                if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-2])) {
-                    var pri = sil.slice(0,-1);
-                    var sec = sil.slice(-1);
-                    sil = pri + "p" + pri.slice(-1) + sec;// + "p" + sec.slice(-1);
-                } else
-                    sil = sil + "p" + sil.slice(-1)
-            } else
-                sil = sil.slice(0,-1) + "p" + sil.slice(-2)
-            return sil;
-        })
-        return jeringo.join('');
+            if(silaba.diptongo.length > 0){
+                var tipoDiptongo = silaba.diptongo[0].tipo
+                console.log(tipoDiptongo)
+                if(tipoDiptongo === "Diptongo Creciente"){
+                    if(silaba.diptongo[0].silaba === "ue")
+                        return sil + "p" + sil.slice(-1); 
+                    else {
+                        var pri = sil.slice(0,-1);
+                        var sec = sil.slice(-1);
+                        return pri + "p" + pri.slice(-1) + sec + "p" + sec;
+                    }
+                }
+            } 
+            if(!/^[aeiouy]$/.test(sil.slice(-1)))
+                return sil.slice(0, -1) + "p" + sil.slice(-2)
+            else
+                return sil + "p" + sil.slice(-1)
+        }).join('');
     }
-
+    
     function jeringuear(texto) {
         var textArray = texto.split(' ');
         var salida = textArray.map(x => jering(x))
@@ -632,11 +637,11 @@
                 continue;
             }
 
-            // Diptongo Drececiente (VF - VD) : ((a|e|o)(i|u))
+            // Diptongo Decreciente (VF - VD) : ((a|e|o)(i|u))
             expresion = /((a|e|o)(i|u))/g;
             if (silaba.silabas[i].silaba.match(expresion)) {
                 silaba.diptongo.push({
-                    tipo: 'Diptongo Drececiente',
+                    tipo: 'Diptongo Decreciente',
                     silaba: silaba.silabas[i].silaba.match(expresion)[0]
                 });
                 continue;
