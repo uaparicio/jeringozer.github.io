@@ -40,7 +40,8 @@
     }
 
     function jering(palabra){
-        var silaba = silabaJS.getSilabas(palabra);
+        palabra = palabra.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        silaba = silabaJS.getSilabas(palabra);
         var jeringo = silaba.silabas.map(x => {
             var sil = x.silaba
             var letrasSilaba = sil.split('')
