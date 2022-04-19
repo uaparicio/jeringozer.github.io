@@ -29,12 +29,12 @@
                     </strong> 
                 </p>
                 <div class="block">
-                    <textarea class="textarea" id="entrada" placeholder="Escribí una frase para traducirla al jeringozo."></textarea>
+                    <textarea class="textarea" id="entrada" placeholder="Escribí una frase para traducirla al jeringozo." onkeyup="enableButtons(this.value)"></textarea>
                 </div>
                 <div class="block">
                     <div class="buttons is-right">
-                        <input type="button" id="limpiar" class="button is-primary is-large is-half" onclick="limpiar()" value="Limpiar"></input>
-                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="submitPhrase(this.value)" value="Traducir"></input>
+                        <input type="button" id="limpiar" class="button is-primary is-large is-half" onclick="limpiar()" value="Limpiar" disabled></input>
+                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="submitPhrase(this.value)" value="Traducir" disabled></input>
                     </div>
                 </div>
                 <div class="block">
@@ -42,8 +42,9 @@
                 </div>
                 <div class="block">
                     <div class="buttons is-right">
-                        <button id="copiar" class="button is-light is-large is-half" onclick="copiar()"><span class="material-icons">content_copy</span></button>
-                        <button id="escuchar" class="button is-light is-large is-half" onclick="escuchar()"><span class="material-icons">volume_up</span></button>
+                        <button id="copiar" class="button is-light is-large is-half" onclick="copiar()" disabled><span class="material-icons">content_copy</span></button>
+                        <button id="escuchar" class="button is-light is-large is-half" onclick="escuchar()" disabled><span class="material-icons">volume_up</span></button>
+                        <button id="enviar" class="button is-light is-large is-half" onclick="share()" disabled><span class="material-icons">whatsapp</span></button>
                         
                     </div>
                 </div>
@@ -62,15 +63,30 @@
         <script>
             function submitPhrase(value){
                 silabaJS.jeringuear(document.getElementById("entrada").value)
+                document.getElementById("copiar").disabled = false;
+                document.getElementById("escuchar").disabled = false;
+                document.getElementById("enviar").disabled = false;
             }
 
             function limpiar(){
-                document.getElementById("entrada").value = ""
+                document.getElementById("entrada").value = 
                 document.getElementById("demo").innerText = ""
+                document.getElementById("copiar").disabled = 
+                document.getElementById("escuchar").disabled = 
+                document.getElementById("enviar").disabled = 
+                document.getElementById("limpiar").disabled = 
+                document.getElementById("traducir").disabled = true;
             }
 
             function escuchar(){
                 silabaJS.escuchar(document.getElementById("demo").value)
+            }
+
+            function enableButtons(value){
+                if(value != "")
+                    document.getElementById("limpiar").disabled = document.getElementById("traducir").disabled = false;
+                else 
+                    document.getElementById("limpiar").disabled = document.getElementById("traducir").disabled = true;
             }
 
             function copiar() {
@@ -80,6 +96,14 @@
                     // Nobody likes hidden stuff being done under the hood!
                     alert("Texto copiado al portapapeles");
                 });
+            }
+
+            function share() {
+                var message = encodeURIComponent(document.getElementById("demo").value)
+                window.open(
+                    "https://wa.me/?text=" + message,
+                    '_blank' 
+                );
             }
         </script>
     </body>
