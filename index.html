@@ -21,7 +21,6 @@
                     <p class="has-text-success">
                         Jeringozer® (BETA)
                     </p>
-    
                 </h1>
                 <p class="subtitle"> 
                     <strong>
@@ -34,17 +33,17 @@
                 <div class="block">
                     <div class="buttons is-right">
                         <input type="button" id="limpiar" class="button is-primary is-large is-half" onclick="limpiar()" value="Limpiar" disabled></input>
-                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="submitPhrase(this.value)" value="Traducir" disabled></input>
+                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="enviarFrase(this.value)" value="Traducir" disabled></input>
                     </div>
                 </div>
                 <div class="block">
-                    <textarea class="textarea" id="demo" placeholder="Acá vas a ver la traducción." disabled></textarea>
+                    <textarea class="textarea" id="salida" placeholder="Acá vas a ver la traducción." disabled></textarea>
                 </div>
                 <div class="block">
                     <div class="buttons is-right">
                         <button id="copiar" class="button is-light is-large is-half" onclick="copiar()" disabled><span class="material-icons">content_copy</span></button>
                         <button id="escuchar" class="button is-light is-large is-half" onclick="escuchar()" disabled><span class="material-icons">volume_up</span></button>
-                        <button id="enviar" class="button is-light is-large is-half" onclick="share()" disabled><span class="material-icons">whatsapp</span></button>
+                        <button id="compartir" class="button is-light is-large is-half" onclick="compartir()" disabled><span class="material-icons">whatsapp</span></button>
                         
                     </div>
                 </div>
@@ -61,25 +60,25 @@
             </div>
           </footer>
         <script>
-            function submitPhrase(value){
+            function enviarFrase(value){
                 silabaJS.jeringuear(document.getElementById("entrada").value)
                 document.getElementById("copiar").disabled = false;
                 document.getElementById("escuchar").disabled = false;
-                document.getElementById("enviar").disabled = false;
+                document.getElementById("compartir").disabled = false;
             }
 
             function limpiar(){
                 document.getElementById("entrada").value = 
-                document.getElementById("demo").innerText = ""
+                document.getElementById("salida").innerText = ""
                 document.getElementById("copiar").disabled = 
                 document.getElementById("escuchar").disabled = 
-                document.getElementById("enviar").disabled = 
+                document.getElementById("compartir").disabled = 
                 document.getElementById("limpiar").disabled = 
                 document.getElementById("traducir").disabled = true;
             }
 
             function escuchar(){
-                silabaJS.escuchar(document.getElementById("demo").value)
+                silabaJS.escuchar(document.getElementById("salida").value)
             }
 
             function enableButtons(value){
@@ -90,16 +89,14 @@
             }
 
             function copiar() {
-                var copyText = document.getElementById("demo").value;
+                var copyText = document.getElementById("salida").value;
                 navigator.clipboard.writeText(copyText).then(() => {
-                    // Alert the user that the action took place.
-                    // Nobody likes hidden stuff being done under the hood!
                     alert("Texto copiado al portapapeles");
                 });
             }
 
-            function share() {
-                var message = encodeURIComponent(document.getElementById("demo").value)
+            function compartir() {
+                var message = encodeURIComponent(document.getElementById("salida").value)
                 window.open(
                     "https://wa.me/?text=" + message,
                     '_blank' 

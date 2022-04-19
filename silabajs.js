@@ -42,14 +42,17 @@
     function jering(palabra){
         palabra = palabra.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         silaba = silabaJS.getSilabas(palabra);
+        console.log(JSON.stringify(silaba));
         var jeringo = silaba.silabas.map(x => {
             var sil = x.silaba
+            if (sil.length === 1)
+                return sil + "p" + sil
             var letrasSilaba = sil.split('')
             if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-1])){
                 if(/[aeiouy]/.test(letrasSilaba[letrasSilaba.length-2])) {
                     var pri = sil.slice(0,-1);
                     var sec = sil.slice(-1);
-                    sil = pri + "p" + pri.slice(-1) + sec + "p" + sec.slice(-1);
+                    sil = pri + "p" + pri.slice(-1) + sec;// + "p" + sec.slice(-1);
                 } else
                     sil = sil + "p" + sil.slice(-1)
             } else
@@ -61,12 +64,9 @@
 
     function jeringuear(texto) {
         var textArray = texto.split(' ');
-        var salida = textArray.map(x => {
-                console.log(JSON.stringify(getSilabas(x)));    
-                return jering(x);
-            })
+        var salida = textArray.map(x => jering(x))
         var resultText = salida.join(' ');
-        document.getElementById("demo").innerText = resultText
+        document.getElementById("salida").innerText = resultText
     }
 
     function escuchar(text) {
