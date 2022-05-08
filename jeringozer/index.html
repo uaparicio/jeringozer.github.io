@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jeringozer®</title>
+        <script src="silabajs.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    </head>
+    
+    <body>
+        <section class="section">
+            <div class="container">
+                <h1 class="title"> 
+                    <p class="has-text-success">
+                        Jeringozer® (BETA)
+                    </p>
+                </h1>
+                <p class="subtitle"> 
+                    <strong>
+                        Un sitio para traducir tus frases al <a href="https://es.wikipedia.org/wiki/Jerigonza" target="_blank">jeringozo</a>.
+                    </strong> 
+                </p>
+                <div class="block">
+                    <textarea class="textarea" id="entrada" placeholder="Escribí una frase para traducirla al jeringozo." onkeyup="enableButtons(this.value)"></textarea>
+                </div>
+                <div class="block">
+                    <div class="buttons is-right">
+                        <input type="button" id="limpiar" class="button is-primary is-large is-half" onclick="limpiar()" value="Limpiar" disabled></input>
+                        <input type="button" id="traducir" class="button is-info is-large is-half" onclick="enviarFrase(this.value)" value="Traducir" disabled></input>
+                    </div>
+                </div>
+                <div class="block">
+                    <textarea class="textarea" id="salida" placeholder="Acá vas a ver la traducción." disabled></textarea>
+                </div>
+                <div class="block">
+                    <div class="buttons is-right">
+                        <button id="copiar" class="button is-light is-large is-half" onclick="copiar()" disabled><span class="material-icons">content_copy</span></button>
+                        <button id="escuchar" class="button is-light is-large is-half" onclick="escuchar()" disabled><span class="material-icons">volume_up</span></button>
+                        <button id="compartir" class="button is-light is-large is-half" onclick="compartir()" disabled><span class="material-icons">whatsapp</span></button>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="content has-text-centered">
+              <p>
+                <strong>Jeringozer 0.0.1</strong> by <a href="https://www.linkedin.com/in/ulises-aparicio-qa/">Ulises Aparicio</a>. Thanks to <a href="https://github.com/nicofrem/silabajs">silabajs from nicofrem</a>.
+              </p>
+              <p>
+                Feel free to collaborate in <a href="https://github.com/uaparicio/uaparicio.github.io">GitHub</a> by fixing issues or by reporting them.
+              </p>
+            </div>
+          </footer>
+        <script>
+            function enviarFrase(value){
+                silabaJS.jeringuear(document.getElementById("entrada").value)
+                document.getElementById("copiar").disabled = false;
+                document.getElementById("escuchar").disabled = false;
+                document.getElementById("compartir").disabled = false;
+            }
+
+            function limpiar(){
+                document.getElementById("entrada").value = 
+                document.getElementById("salida").innerText = ""
+                document.getElementById("copiar").disabled = 
+                document.getElementById("escuchar").disabled = 
+                document.getElementById("compartir").disabled = 
+                document.getElementById("limpiar").disabled = 
+                document.getElementById("traducir").disabled = true;
+            }
+
+            function escuchar(){
+                silabaJS.escuchar(document.getElementById("salida").value)
+            }
+
+            function enableButtons(value){
+                if(value != "")
+                    document.getElementById("limpiar").disabled = document.getElementById("traducir").disabled = false;
+                else 
+                    document.getElementById("limpiar").disabled = document.getElementById("traducir").disabled = true;
+            }
+
+            function copiar() {
+                var copyText = document.getElementById("salida").value;
+                navigator.clipboard.writeText(copyText).then(() => {
+                    alert("Texto copiado al portapapeles");
+                });
+            }
+
+            function compartir() {
+                var message = encodeURIComponent(document.getElementById("salida").value)
+                window.open(
+                    "https://wa.me/?text=" + message,
+                    '_blank' 
+                );
+            }
+        </script>
+    </body>
+</html>
