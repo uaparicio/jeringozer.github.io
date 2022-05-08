@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculador de esfuerzo</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    
+    <body>
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li class="is-active"><a href="#" aria-current="page">Calculador de esfuerzo</a></li>
+            </ul>
+          </nav>
+        <section class="section">
+            <div class="container">
+                
+                <h1 class="title"> 
+                    <p class="has-text-success">
+                        Calculador de esfuerzo
+                    </p>
+                </h1>
+                
+                <p class="subtitle"> 
+                    <a>¿Querés saber cuanto necesitas trabajar para comprarte eso que tanto querés? ¡Calculalo!</a>
+                </p>
+                <hr />
+                <div class="block">
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">¿Cuanto cobras por mes?</label>
+                                <input class="input" id="salary" type="text" placeholder="$65000,00" onkeyup="calculate()">
+                            </div>
+                            <div class="field">
+                                <label class="label">¿Cuantas horas al dia trabajas?</label>
+                                <input class="input" type="number" id="hours" name="hours" min="1" max="12" placeholder="8" value="8" onkeyup="calculate()">
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">¿Cuantos dias a la semana trabajas?</label>
+                                <input class="input" type="number" id="days" name="days" min="1" max="7" placeholder="6" value="6" onkeyup="calculate()">
+                            </div>
+                            <div class="field">
+                                <label class="label">Precio de lo que queres comprar</label>
+                                <input class="input" id="price" type="text" placeholder="$6299,99" onkeyup="calculate()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <h1 class="subtitle" id="msg"></h1>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="content has-text-centered">
+              <p>
+                <strong>Effort Calculator 1.0.0</strong> by <a href="https://www.linkedin.com/in/ulises-aparicio-qa/">Ulises Aparicio</a>.
+              </p>
+              <p>
+                Feel free to collaborate in <a href="https://github.com/uaparicio/uaparicio.github.io">GitHub</a> by fixing issues or by reporting them.
+              </p>
+            </div>
+          </footer>
+    </body>
+    <script>
+
+        function allValid(){
+            return Number(document.getElementById("salary").value)
+            && Number(document.getElementById("hours").value)
+            && Number(document.getElementById("days").value)
+            && Number(document.getElementById("price").value);
+        }
+
+        function calculate(){
+            if(allValid()) {
+                let salary = Number(document.getElementById("salary").value);
+                let hours = Number(document.getElementById("hours").value);
+                let days = Number(document.getElementById("days").value);
+                let price = Number(document.getElementById("price").value);
+
+                let totalHoursMonth = (4 * days * hours);
+                let salaryPerHour = salary / totalHoursMonth;
+                res = price / salaryPerHour
+
+                document.getElementById("msg").innerText = `Por una hora de tu trabajo, estas percibiendo aproximadamente $${Math.round(salaryPerHour)}.\n\nLo que querés comprar equivale a aproximadamente ${Math.round(res)} horas de tu trabajo.`;
+            } else
+                document.getElementById("msg").innerText = "";
+        }
+    </script>
+</html>
