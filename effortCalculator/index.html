@@ -9,13 +9,13 @@
     </head>
     
     <body>
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li><a href="/index.html">Home</a></li>
-              <li class="is-active"><a href="#" aria-current="page">Calculador de esfuerzo</a></li>
-            </ul>
-          </nav>
         <section class="section">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li class="is-active"><a href="#" aria-current="page">Calculador de esfuerzo</a></li>
+                </ul>
+            </nav>
             <div class="container">
                 
                 <h1 class="title"> 
@@ -29,26 +29,24 @@
                 </p>
                 <hr />
                 <div class="block">
-                    <div class="columns">
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">¿Cuanto cobras por mes?</label>
-                                <input class="input" id="salary" type="text" placeholder="$65000,00" onkeyup="calculate()">
-                            </div>
-                            <div class="field">
-                                <label class="label">¿Cuantas horas al dia trabajas?</label>
-                                <input class="input" type="number" id="hours" name="hours" min="1" max="12" placeholder="8" value="8" onkeyup="calculate()">
-                            </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">¿Cuanto cobras por mes?</label>
+                            <input class="input" id="salary" type="text" placeholder="$65000,00" onkeyup="calculate()">
                         </div>
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">¿Cuantos dias a la semana trabajas?</label>
-                                <input class="input" type="number" id="days" name="days" min="1" max="7" placeholder="6" value="6" onkeyup="calculate()">
-                            </div>
-                            <div class="field">
-                                <label class="label">Precio de lo que queres comprar</label>
-                                <input class="input" id="price" type="text" placeholder="$6299,99" onkeyup="calculate()">
-                            </div>
+                        <div class="field">
+                            <label class="label">¿Cuantos dias a la semana trabajas?</label>
+                            <input class="input" type="number" id="days" name="days" min="1" max="7" placeholder="6" value="6" onkeyup="calculate()">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">¿Cuantas horas al dia trabajas?</label>
+                            <input class="input" type="number" id="hours" name="hours" min="1" max="12" placeholder="8" value="8" onkeyup="calculate()">
+                        </div>
+                        <div class="field">
+                            <label class="label">Precio de lo que queres comprar</label>
+                            <input class="input" id="price" type="text" placeholder="$6299,99" onkeyup="calculate()">
                         </div>
                     </div>
                 </div>
@@ -69,7 +67,7 @@
           </footer>
     </body>
     <script>
-
+        let message = "";
         function allValid(){
             return Number(document.getElementById("salary").value)
             && Number(document.getElementById("hours").value)
@@ -86,11 +84,18 @@
 
                 let totalHoursMonth = (4 * days * hours);
                 let salaryPerHour = salary / totalHoursMonth;
-                res = price / salaryPerHour
+                resHour = price / salaryPerHour
+                resDay = resHour / 8;
 
-                document.getElementById("msg").innerText = `Por una hora de tu trabajo, estas percibiendo aproximadamente $${Math.round(salaryPerHour)}.\n\nLo que querés comprar equivale a aproximadamente ${Math.round(res)} horas de tu trabajo.`;
-            } else
-                document.getElementById("msg").innerText = "";
+                message = `Por una hora de tu trabajo, estas percibiendo aproximadamente $${Math.round(salaryPerHour)}.\n\n`;
+
+                if(resHour < 8)
+                    message = message + `Lo que querés comprar equivale a aproximadamente ${Math.ceil(resHour)} horas de tu trabajo.`;
+                if(resHour >= 8)
+                    message = message +  `Lo que querés comprar equivale a aproximadamente ${Math.ceil(resDay)} dias de tu trabajo.`;
+                }
+                
+                document.getElementById("msg").innerText = message;
         }
     </script>
 </html>
