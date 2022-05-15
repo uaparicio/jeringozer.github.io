@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Calculador de esfuerzo</title>
+        <title>Effort calculator</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-        <script type="text/javascript" src="calc.js"></script>
+        <script type="text/javascript" src="calcEn.js"></script>
     </head>
     
     <body>
         <section class="section">
             <div class="buttons has-addons is-right">
-                <a  href="en.html"><button class="button">English</button></a>
-            </div>            
+                <a  href="index.html"><button class="button">Español</button></a>
+            </div>
             <div class="container">
                 
                 <h1 class="title"> 
                     <p class="has-text-success">
-                        Calculador de esfuerzo
+                        Effort calculator
                     </p>
                 </h1>
                 
                 <p class="subtitle"> 
-                    <a>¿Querés saber cuanto necesitas trabajar para comprarte eso que tanto querés? ¡Calculalo!</a>
+                    <a>Would you like to know how much you need to work in order to buy that thing you want? Calculate it!</a>
                 </p>
                 <hr />
                 <div class="columns">
                     <div class="column">
                         <div class="field">
-                            <label class="label">¿Cuanto cobras por mes?</label>
-                            <input class="input" id="salary" type="text" placeholder="$65000,00" onkeyup="calculate()">
+                            <label class="label">How much you earn per month?</label>
+                            <input class="input" id="salary" type="text" placeholder="$2500" onkeyup="calculate()">
                             <p class="help is-danger" id="salaryError"></p>
                         </div>
                         <div class="field">
-                            <label class="label">¿Cuantos dias a la semana trabajas?</label>
+                            <label class="label">How many days per week you work?</label>
                             <div class="select is-fullwidth">
                                 <select id="days" name="days" onchange="calculate()">
                                   <option>1</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="column">
                         <div class="field">
-                            <label class="label">¿Cuantas horas al dia trabajas?</label>
+                            <label class="label">How many hours per work day?</label>
                             <!-- <input class="input" type="number" id="hours" name="hours" min="1" max="24" placeholder="8" value="8" onchange="calculate()"> -->
                             <div class="select is-fullwidth">
                                 <select id="hours" name="hours" onchange="calculate()">
@@ -79,8 +79,8 @@
                             <p class="help is-danger" id="hoursMsg"></p>
                         </div>
                         <div class="field">
-                            <label class="label">Precio de lo que queres comprar</label>
-                            <input class="input" id="price" type="text" placeholder="$6299,99" onkeyup="calculate()">
+                            <label class="label">Price of the desired thing</label>
+                            <input class="input" id="price" type="text" placeholder="$499" onkeyup="calculate()">
                             <p class="help is-success" id="priceMsg"></p>
                             <p class="help is-danger" id="priceError"></p>
                         </div>
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <hr />
-            <a href='https://cafecito.app/uaparicio' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
+            <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="uaparicio" data-color="#000000" data-emoji=""  data-font="Lato" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
         </section>
         <footer class="footer">
             <div class="content has-text-centered">
