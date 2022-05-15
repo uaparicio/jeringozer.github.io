@@ -55,12 +55,12 @@ let message = "";
                 if(salaryPerHour != 0){
                     message = `You are earning aproximately $${salaryPerHour} per hour.\n\n`;
                     if(resMin < 60){
-                        message = message + `In order to buy that, you should work about ${resMin} minute${resMin > 1 ? "s" : ""} of your work.`;    
+                        message = message + `In order to buy that, you should work about ${resMin} minute${resMin > 1 ? "s" : ""}.`;    
                     } else {
                         if(resHour < hours){
-                            message = message + `In order to buy that, you should work about ${resHour} hour${resHour > 1 ? "s" : ""} of your work.`;    
+                            message = message + `In order to buy that, you should work about ${resHour} hour${resHour > 1 ? "s" : ""}.`;    
                         } else {
-                            message = message + `In order to buy that, you should work about ${resHour/hours} day${(resHour/hours) > 1 ? "s" : ""} of your work.`;    
+                            message = message + `In order to buy that, you should work about ${resHour/hours} day${(resHour/hours) > 1 ? "s" : ""}.`;    
                         }
                     }
                 } else 
