@@ -53,7 +53,7 @@ let message = "";
                 resMin = Math.ceil(price / salaryPerMinute);
                 
                 if(salaryPerHour != 0){
-                    message = `You are earning aproximately $${salaryPerHour} per hour.\n\n`;
+                    message = `You are earning approximately $${salaryPerHour} per hour.\n\n`;
                     if(resMin < 60){
                         message = message + `In order to buy that, you should work about ${resMin} minute${resMin > 1 ? "s" : ""}.`;    
                     } else {
